@@ -5,7 +5,7 @@ class Student:
     def __init__(self, name):
         self.name = name
         self.ID = id(self)
-        self.borrowed_books = []
+        self.borrowed_books: list[Book] = []
         self.college_name = "ІТ коледж"
     
     @property

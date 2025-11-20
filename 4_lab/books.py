@@ -22,3 +22,7 @@ class Book:
                 Видання: ({self.year}) - ISBN: {self.isbn}.
                 Статус: {self.status.value}.
                 """
+    
+    @property
+    def info(self):
+        return f"Книга '{self.title}' зараз {self.status.value} та {f'взята студентом {self.taken_by}' if self.taken_by else 'доступна для позики'}."
