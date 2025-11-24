@@ -18,14 +18,11 @@ class Library:
         return self.students
     
     # створюємо метод для видачі книги студенту
-    def lend_book(self, book: Book, student: Student):
+    def lend_book(self, book: Book, student: Student, current_day: int):
         """Видаємо книгу студенту, якщо вона доступна"""
         if book in self.books_shelf:
-            book.status = BookStatus.BORROWED
             self.books_shelf.remove(book)
-            student.borrowed_books.append(book)
-            book.taken_by = student.name
-            if student.borrow_book(book):
+            if student.borrow_book(book, current_day=current_day):
                 print(f"Книга '{book.title}' успішно видана користувачу {student.name}.")
             return True
         elif book in self.books:
@@ -38,15 +35,13 @@ class Library:
             return False
         
     # створюємо метод для повернення книги до бібліотеки
-    def return_book(self, book: Book, student: Student):
+    def return_book(self, book: Book, student: Student, current_day: int):
         """Повертаємо книгу до бібліотеки"""
         if book in student.borrowed_books:
             print(f"Книга '{book.title}' успішно повернена до бібліотеки {student.name}.")
-            book.status = BookStatus.AVAILABLE
-            student.borrowed_books.remove(book)
-            self.books_shelf.append(book)
-            book.taken_by = None
-            return True
+            if student.return_book(book, current_day=current_day):
+                self.books_shelf.append(book)
+                return True
         print(f"Книга '{book.title}' не знаходиться у користувача {student.name}.")
         return False
 

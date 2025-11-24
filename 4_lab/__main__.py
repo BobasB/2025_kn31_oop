@@ -5,10 +5,26 @@ from student import Student
 
 if __name__ == "__main__":
     ITCollegeLibrary = Library()
-    _book_name = ["Філософський камінь", "Таємна кімната", "В'язень Азкабану", "Кубок вогню", "Орден Фенікса", "Напівкровний принц", "Смертельні реліквії"]
+    historian_books = ["Історія України", "Історія світу", "Історія мистецтв"]
+    fantastic_books = ["Філософський камінь", "Таємна кімната", "В'язень Азкабану", "Кубок вогню", "Орден Фенікса", "Напівкровний принц", "Смертельні реліквії"]
+    programming_books = ["Вступ до Python", "Алгоритми та структури даних", "Об'єктно-орієнтоване програмування", "Розробка веб-додатків", "Бази даних", "Машинне навчання", "Штучний інтелект"]
+    literature_books = ["Кобзар", "Лісова пісня", "Енеїда", "Майстер і Маргарита", "Вій", "Тіні забутих предків"]
+    
     # Додаємо книги до бібліотеки
-    for b in _book_name:
+    for b in fantastic_books:
         book = Book(f"Гаррі Поттер і {b}", "Дж. К. Роулінг", 1997, "978-3-16-148410-0")
+        ITCollegeLibrary.books_shelf.append(book)
+        ITCollegeLibrary.books.append(book)
+    for b in programming_books:
+        book = Book(f"{b}", "Автор невідомий", 2020, "978-1-23-456789-0")
+        ITCollegeLibrary.books_shelf.append(book)
+        ITCollegeLibrary.books.append(book)
+    for b in literature_books:
+        book = Book(f"{b}", "Український класик", 1950, "978-0-12-345678-9")
+        ITCollegeLibrary.books_shelf.append(book)
+        ITCollegeLibrary.books.append(book)
+    for b in historian_books:
+        book = Book(f"{b}", "Відомий історик", 2015, "978-9-87-654321-0")
         ITCollegeLibrary.books_shelf.append(book)
         ITCollegeLibrary.books.append(book)
 
@@ -33,19 +49,19 @@ if __name__ == "__main__":
         Book("Фізика в сучасному світі", "Олександр Олександров", 2019, "978-3-16-148410-3")
         ]
 
-    for day in range(1, 30):
+    for day in range(1, 90):
         print(f"\n--- День {day} ---")
         random_book: Book = random.choice(non_existing_books + ITCollegeLibrary.books)
         random_user: Student = random.choice(ITCollegeLibrary.students)
         print(f"\nСпроба видати книгу '{random_book.title}' користувачу {random_user.name}:")
         if random.random() < 0.4: # 40% ймовірність спроби взяти книгу
             if random_user.think_before_take_a_book(random_book):
-                if ITCollegeLibrary.lend_book(random_book, random_user):
+                if ITCollegeLibrary.lend_book(random_book, random_user, day):
                     print(f"Книга '{random_book.title}' успішно видана користувачу {random_user.name}.")
                 else:
                     print(f"Книга '{random_book.title}' недоступна для читання.")
         else:
-            if ITCollegeLibrary.return_book(random_book, random_user):
+            if ITCollegeLibrary.return_book(random_book, random_user, day):
                 print(f"Книга '{random_book.title}' успішно повернена до бібліотеки {random_user.name}.")
             else:
                 print(f"Книга '{random_book.title}' не знаходиться у користувача {random_user.name}.")
@@ -56,6 +72,20 @@ if __name__ == "__main__":
         print(f"\nКористувач {user.name} має {len(user.borrowed_books)} книг(и):")
         for book in user.borrowed_books:
             print(f"- {book.title}")
+        print(f"  Всього книжок взято за місяць: {user.total_books_taken}")
+        fav_books = user.favorite_books
+        if fav_books:
+            print(f"  Найулюбленіші книжки: {', '.join(fav_books)}")
+        else:
+            print("  Найулюбленіші книжки: немає")
+        if user.book_reading_days:
+            print("  Дні читання кожної повернутої книжки:")
+            for book in user.books_taken_history:
+                days = user.get_reading_days(book)
+                if days:
+                    print(f"    - '{book.title}': {days} днів")
+        else:
+            print("  Студент не повертав книжки або статистика недоступна.")
     print(f"\nВ бібліотеці залишилось {len(ITCollegeLibrary.list_available_books)} доступних книг:")
     for available_book in ITCollegeLibrary.list_available_books:
         print(f"- {available_book.title}")
