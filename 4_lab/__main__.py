@@ -6,40 +6,59 @@ from student import Student
 if __name__ == "__main__":
     ITCollegeLibrary = Library()
     _book_name = ["Філософський камінь", "Таємна кімната", "В'язень Азкабану", "Кубок вогню", "Орден Фенікса", "Напівкровний принц", "Смертельні реліквії"]
+    # Додаємо книги до бібліотеки
     for b in _book_name:
         book = Book(f"Гаррі Поттер і {b}", "Дж. К. Роулінг", 1997, "978-3-16-148410-0")
         ITCollegeLibrary.books_shelf.append(book)
         ITCollegeLibrary.books.append(book)
 
+    # Регєструємо студентів у бібліотеці
     for name in ["Богдан", "Ростислав", "Анна", "Олена", "Ігор", "Марія", "Віктор"]:
         user = Student(name)
         ITCollegeLibrary.students.append(user)
         print(user.student_id_card)
 
-    print("\nДоступні книги в бібліотеці ІТ коледжу:")
-    for available_book in ITCollegeLibrary.list_available_books:
-        print(available_book.description)
+    print(f"\nДоступні книги в бібліотеці ІТ коледжу {len(ITCollegeLibrary.list_available_books)}:")
+    # for available_book in ITCollegeLibrary.list_available_books:
+    #     print(available_book.description)
     
-    print("У бібліотеці зареєстровано користувачів:")
-    for user in ITCollegeLibrary.students:
-        print(user.student_id_card)
+    print(f"\nУ бібліотеці зареєстровано користувачів: {len(ITCollegeLibrary.students)}")
+    # for user in ITCollegeLibrary.students:
+    #     print(user.student_id_card)
 
+    # Симулюємо спроби видати книги, яких немає в бібліотеці
     non_existing_books = [
         Book("Історія України", "Іван Франко", 2020, "978-3-16-148410-1"),
         Book("Математика для інженерів", "Петро Петров", 2018, "978-3-16-148410-2"),
         Book("Фізика в сучасному світі", "Олександр Олександров", 2019, "978-3-16-148410-3")
         ]
 
-    for day in range(1, 20):
+    for day in range(1, 30):
         print(f"\n--- День {day} ---")
         random_book: Book = random.choice(non_existing_books + ITCollegeLibrary.books)
         random_user: Student = random.choice(ITCollegeLibrary.students)
         print(f"\nСпроба видати книгу '{random_book.title}' користувачу {random_user.name}:")
-        if ITCollegeLibrary.lend_book(random_book, random_user):
-            print(f"Книга '{random_book.title}' успішно видана користувачу {random_user.name}.")
+        if random.random() < 0.4: # 40% ймовірність спроби взяти книгу
+            if random_user.think_before_take_a_book(random_book):
+                if ITCollegeLibrary.lend_book(random_book, random_user):
+                    print(f"Книга '{random_book.title}' успішно видана користувачу {random_user.name}.")
+                else:
+                    print(f"Книга '{random_book.title}' недоступна для читання.")
         else:
-            print(f"Книга '{random_book.title}' недоступна для читання.")
+            if ITCollegeLibrary.return_book(random_book, random_user):
+                print(f"Книга '{random_book.title}' успішно повернена до бібліотеки {random_user.name}.")
+            else:
+                print(f"Книга '{random_book.title}' не знаходиться у користувача {random_user.name}.")
     
+    # Виводимо статиску які книжки в кого залишились та скільки книг в бібліотеці
+    print(f"\nПісля місяця роботи бібліотеки ІТ коледжу:")
+    for user in ITCollegeLibrary.students:
+        print(f"\nКористувач {user.name} має {len(user.borrowed_books)} книг(и):")
+        for book in user.borrowed_books:
+            print(f"- {book.title}")
+    print(f"\nВ бібліотеці залишилось {len(ITCollegeLibrary.list_available_books)} доступних книг:")
+    for available_book in ITCollegeLibrary.list_available_books:
+        print(f"- {available_book.title}")
     ######
 
     # Симулюємо процес видачі книги користувачу та повернення книги до бібліотеки
