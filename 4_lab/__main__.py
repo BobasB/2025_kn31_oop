@@ -8,6 +8,7 @@ import random
 from library import Library
 from books import Book
 from student import Student
+from stats import Statistics
 
 
 if __name__ == "__main__":
@@ -105,57 +106,9 @@ if __name__ == "__main__":
                 print(f"Книга '{random_book.title}' не знаходиться у користувача {random_user.name}.")
     
     # === ВИВЕДЕННЯ ФІНАЛЬНОЇ СТАТИСТИКИ ===
-    print("\n" + "="*70)
-    print(f"ПІДСУМКОВА СТАТИСТИКА ПІСЛЯ {SIMULATION_DAYS} ДНІВ РОБОТИ БІБЛІОТЕКИ")
-    print("="*70)
-    
-    # Статистика по кожному студенту
-    for user in ITCollegeLibrary.students:
-        print(f"\n{'─'*70}")
-        print(f"Студент: {user.name}")
-        print(f"{'─'*70}")
-        
-        # Поточні книги у студента
-        print(f"  Зараз має {len(user.borrowed_books)} книг(и):")
-        if user.borrowed_books:
-            for book in user.borrowed_books:
-                print(f"    • {book.title}")
-        else:
-            print("    (немає книг)")
-        
-        # Загальна статистика
-        print(f"\n  📊 Статистика за період:")
-        print(f"    Всього книжок взято: {user.total_books_taken}")
-        
-        # Найулюбленіші книжки
-        fav_books = user.favorite_books
-        if fav_books:
-            print(f"    Найулюбленіші книжки: {', '.join(fav_books)}")
-        else:
-            print("    Найулюбленіші книжки: немає даних")
-        
-        # Дні читання повернутих книг
-        if user.book_reading_days:
-            print("\n  📖 Дні читання повернутих книжок:")
-            for book in user.books_taken_history:
-                days = user.get_reading_days(book)
-                if days > 0:
-                    print(f"    • '{book.title}': {days} днів")
-        else:
-            print("\n  📖 Студент ще не повертав книжки")
-    
-    # Статистика бібліотеки
-    print(f"\n{'='*70}")
-    print(f"СТАТИСТИКА БІБЛІОТЕКИ")
-    print(f"{'='*70}")
-    print(f"Всього книг у каталозі: {len(ITCollegeLibrary.books)}")
-    print(f"Доступних книг на полиці: {len(ITCollegeLibrary.list_available_books)}")
-    print(f"Книг у студентів: {len(ITCollegeLibrary.books) - len(ITCollegeLibrary.list_available_books)}")
-    
-    print(f"\nДоступні книги:")
-    for available_book in ITCollegeLibrary.list_available_books:
-        print(f"  • {available_book.title}")
-    print("="*70)
+    # Створюємо об'єкт статистики та виводимо повну інформацію з додатковою аналітикою
+    statistics = Statistics(ITCollegeLibrary, SIMULATION_DAYS)
+    statistics.print_extended_statistics()
 
     # Симулюємо процес видачі книги користувачу та повернення книги до бібліотеки
     # for day in ["Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця"]:
