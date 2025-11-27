@@ -44,6 +44,14 @@ class Book:
         # Спочатку книга нікому не належить
         self.taken_by = None
     
+    def __str__(self) -> str:
+        """Повертає рядкове представлення книги.
+        
+        Returns:
+            str: Рядок з основною інформацією про книгу
+        """
+        return f"'{self.title}' ({self.author}, {self.year}) - {self.status.value}"
+    
     @property
     def description(self) -> str:
         """Повертає детальний опис книги.
