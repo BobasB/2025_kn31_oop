@@ -4,8 +4,8 @@ from jikanpy import Jikan
 jikan = Jikan()
 app = Flask(__name__)
 
-j = jikan.anime(57658, extension='episodes')
-anime = jikan.anime(57658)
+j = jikan.anime(59978, extension='episodes')
+#anime = jikan.anime(59978)
 
 @app.route('/')
 def home():
