@@ -14,3 +14,6 @@ print(f"httpx: {r}")
 import requests
 r = requests.get('https://www.google.com/')
 print(f"requests: {r}")
+
+def nonConventionalFunction(x):
+    return math.sin(x) + random.random()
