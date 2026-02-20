@@ -19,4 +19,17 @@ pipenv graph
 
 ## додамо dev залежності
 ```bash
+pipenv install --dev flake8
+pipenv graph
+```
+
+### перестворення середовища
+```bash
+cd 6_lab
+pipenv --rm
+export PIPENV_VENV_IN_PROJECT=1
+
+pipenv install
+pipenv check --scan
+```
 
