@@ -33,3 +33,10 @@ pipenv install
 pipenv check --scan
 ```
 
+### Змінні середовища
+```bash
+export TEST=1
+python app.py
+```
+
+

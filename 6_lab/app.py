@@ -1,5 +1,6 @@
 import math
 import random 
+import os
 
 # Це все вбудовані бібліотеки, які не потрібно встановлювати через pip
 
@@ -8,12 +9,17 @@ import random
 
 # є бібліотеки які не є вбудованими, але їх можна встановити через pip
 import httpx
-r = httpx.get('https://www.google.com/')
-print(f"httpx: {r}")
+
+u = os.getenv('URL_TEST')
+r = httpx.get(u)
+print(f"httpx: {r} коли доступаємось до URL_TEST: {u}")
 
 import requests
-r = requests.get('https://www.google.com/')
-print(f"requests: {r}")
+r = requests.get(u)
+print(f"requests: {r} коли доступаємось до URL_TEST: {u}")
 
 def nonConventionalFunction(x):
     return math.sin(x) + random.random()
+
+
+print(f"Витягуємо змінні TEST: {os.getenv('TEST')}")
