@@ -39,4 +39,27 @@ export TEST=1
 python app.py
 ```
 
+## Робота з poetry
+```bash
+cd 6_lab/3_poetry
+poetry init
+poetry add httpx requests
 
+eval $(poetry env activate)
+deactivate
+
+```
+
+## Робимо секції в pyproject.toml
+```bash
+poetry add flake8 --dev
+poetry add --group docs mkdocs
+
+poetry install --only docs
+evel $(poetry env activate)
+mkdocs serve
+deactivate
+```
+> попросили АІ заповнити документацію, все зроблено в папці 3_poetry/docs
+
+# Доробляєте звід до роботи самостійно

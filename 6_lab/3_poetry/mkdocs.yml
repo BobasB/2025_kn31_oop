@@ -1,0 +1,21 @@
+site_name: Лабораторна робота №6 - Віртуальні середовища Python
+site_description: Робота з віртуальними середовищами Python - venv, pipenv, poetry
+
+theme:
+  name: readthedocs
+  locale: uk
+
+nav:
+  - Головна: index.md
+  - Інструменти:
+    - venv: venv.md
+    - Pipenv: pipenv.md
+    - Poetry: poetry.md
+  - Порівняння інструментів: comparison.md
+  - Практичні приклади: examples.md
+
+markdown_extensions:
+  - codehilite
+  - admonition
+  - toc:
+      permalink: true
