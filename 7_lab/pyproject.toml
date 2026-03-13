@@ -1,0 +1,20 @@
+[project]
+name = "7-lab"
+version = "0.1.0"
+description = "Лаба для створення АІ агентів"
+authors = [
+    {name = "BobasB",email = "bugil.bogdan@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13,<4.0.0"
+dependencies = [
+    "google-adk (>=1.27.0,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
