@@ -8,7 +8,7 @@ def get_current_time() -> dict:
     return {"status": "success", "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 root_agent = Agent(
-    model='gemini-2.5-flash',
+    model='gemini-3.1-flash-lite-preview', #'gemini-3-flash-preview', #'gemini-2.5-flash', 
     name='root_agent',
     description='Агент помічник студентам.',
     instruction="""
