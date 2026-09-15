@@ -24,4 +24,4 @@ dev = [
 
 [tool.poetry.scripts]
 main = "lab1.main:main"
-test = "tests.test_main:test"
+test = "tests.test_main:test_main"
