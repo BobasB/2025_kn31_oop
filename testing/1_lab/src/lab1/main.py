@@ -13,5 +13,16 @@ def main(p: int = 5) -> int:
         logger.debug(f"Processing {i}")
     return 0
 
+class SimpleClass:
+    def __init__(self, v: int):
+        self.value = v
+
+    def increment(self) -> None:
+        self.value += 1
+
+    def get_value(self) -> int:
+        return self.value #float(self.value)
+
+
 if __name__ == "__main__":
     main()

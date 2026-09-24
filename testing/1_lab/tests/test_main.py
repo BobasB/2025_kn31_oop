@@ -1,6 +1,6 @@
 import unittest
 
-from lab1.main import celsius_to_fahrenheit, main
+from lab1.main import celsius_to_fahrenheit, main, SimpleClass
 
 
 def test():
@@ -82,6 +82,35 @@ class TestTemperatureConversion(unittest.TestCase):
                 )
 
 
+class TestSimpleClass(unittest.TestCase):
+    def setUp(self) -> None:
+        """Цей метод викликається перед кожним тестом"""
+        print(f"{20*'#'} Починаємо тестування SimpleClass... {20*'#'}")
+        self.obj = SimpleClass(5)
+
+    def tearDown(self) -> None:
+        """Цей метод викликається після кожного тесту"""
+        print(f"{20*'#'} Тестування SimpleClass завершено. {20*'#'}")
+        del self.obj  # Видаляємо об'єкт після тесту
+    
+    def test_increment(self) -> None:
+        """Пробуємо через unittest чи відпрацьовує метод increment"""
+        self.obj.increment()
+        self.assertEqual(self.obj.get_value(), 6)
+
+    def test_get_value(self) -> None:
+        """Пробуємо через unittest чи відпрацьовує метод get_value"""
+        self.assertEqual(self.obj.get_value(), 5)
+        self.assertIsInstance(self.obj.get_value(), int, f"Expected int!")
+        assert isinstance(self.obj.get_value(), int), f"Expected int!"
+
+    def test_also_allowed(self) -> None:
+        """Можна створювати обєкт тут без setUp, але це не рекомендується"""
+        obj = SimpleClass(10)
+        self.assertEqual(obj.get_value(), 10)
+        self.assertIsInstance(obj.get_value(), int, f"Expected int!")
+        del obj  # Видаляємо об'єкт після тесту
+
 if __name__ == "__main__":
     #test_main()
-    unittest.main()
+    unittest.main(verbosity=2)  # Запуск тестів з детальним виводом
