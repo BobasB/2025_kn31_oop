@@ -93,6 +93,8 @@ class TestSimpleClass(unittest.TestCase):
         print(f"{20*'#'} Тестування SimpleClass завершено. {20*'#'}")
         del self.obj  # Видаляємо об'єкт після тесту
     
+    ## Наступного разу setUpClass і tearDownClass
+    
     def test_increment(self) -> None:
         """Пробуємо через unittest чи відпрацьовує метод increment"""
         self.obj.increment()
