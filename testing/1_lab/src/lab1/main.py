@@ -23,6 +23,20 @@ class SimpleClass:
     def get_value(self) -> int:
         return self.value #float(self.value)
 
+    def return_from_input(self, v: int) -> int:
+        # Ми не тестуємо який алгоритм всередині функції, ми тестуємо що вона повертає те що їй передали
+        if v < 0:
+            return 0
+        return v
+
+    def return_error_if_less_then_zero(self, v: int) -> int:
+        if v < 0:
+            raise ValueError("Неможна передавати від'ємне число!")
+        if v == 0:
+            #raise TypeError("Неможна передавати нуль!")
+            return 0
+        return v
+
 
 if __name__ == "__main__":
     main()

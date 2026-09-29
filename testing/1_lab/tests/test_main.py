@@ -92,8 +92,26 @@ class TestSimpleClass(unittest.TestCase):
         """Цей метод викликається після кожного тесту"""
         print(f"{20*'#'} Тестування SimpleClass завершено. {20*'#'}")
         del self.obj  # Видаляємо об'єкт після тесту
-    
-    ## Наступного разу setUpClass і tearDownClass
+
+    # Наступного разу setUpClass і tearDownClass
+    # Ідемпотентність — це властивість операції або функції, за якої її багаторазове повторення 
+    # дає той самий кінцевий результат і стан системи, що й одноразове
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        """Цей метод викликається один раз перед усіма тестами класу"""
+        print(f"{20*'#'} Починаємо тестування SimpleClass... {20*'#'}")
+        cls.immutable_global_variable = 42  # Приклад ідемпотентної операції, яка виконується один раз
+        # найчастіше перехід через 0 або дані різного поряду величини, наприклад: -10, 0, 20, 10000
+        cls.tuple_variable = (0, 20, 10000)  # Приклад ідемпотентної операції, яка виконується один раз
+        cls.negative_tuple_variable = (-10, -1, 0, -100, -1000)  # Приклад ідемпотентної операції, яка виконується один раз
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        """Цей метод викликається один раз після усіх тестів класу"""
+        print(f"{20*'#'} Тестування SimpleClass завершено. {20*'#'}")
+        del cls.tuple_variable  # Видаляємо кортеж після тестів
+        del cls.immutable_global_variable  # Видаляємо змінну після тестів
     
     def test_increment(self) -> None:
         """Пробуємо через unittest чи відпрацьовує метод increment"""
@@ -108,10 +126,32 @@ class TestSimpleClass(unittest.TestCase):
 
     def test_also_allowed(self) -> None:
         """Можна створювати обєкт тут без setUp, але це не рекомендується"""
-        obj = SimpleClass(10)
-        self.assertEqual(obj.get_value(), 10)
+        obj = SimpleClass(self.immutable_global_variable)
+        self.assertEqual(obj.get_value(), self.immutable_global_variable)
         self.assertIsInstance(obj.get_value(), int, f"Expected int!")
         del obj  # Видаляємо об'єкт після тесту
+
+    #def test_obj_with_tuple(self) -> None:
+    #    """Тестуємо функцію return_from_input з використанням кортежу"""
+    #    for v in self.tuple_variable: # набір тестових даних
+    #        # Ми не тестуємо який алговритим всередині функції, 
+    #        # а тестуємо що вона повертає те що їй передали
+    #        self.assertEqual(self.obj.return_from_input(v), v)
+
+    def test_obj_with_tuple_subtest(self) -> None:
+        """Тестуємо функцію return_from_input з використанням кортежу та підтестів"""
+        for v in self.tuple_variable: # набір тестових даних      
+            with self.subTest(value=v):
+                self.assertEqual(self.obj.return_from_input(v), v)
+                self.assertIsInstance(self.obj.return_from_input(v), int, f"Expected int!")
+
+    def test_obj_with_negative_tuple_subtest(self) -> None:
+        """Тестуємо функцію return_error_if_less_then_zero з використанням кортежу та підтестів"""
+        for v in self.negative_tuple_variable: # набір тестових даних      
+            with self.subTest(value=v):
+                with self.assertRaises((ValueError, TypeError)):
+                    self.obj.return_error_if_less_then_zero(v)
+
 
 if __name__ == "__main__":
     #test_main()
