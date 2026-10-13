@@ -1,4 +1,7 @@
+import pytest
+
 from lab.main import validate_score
+
 
 def validate_score_test_new():
     # Цей тест не буде виконуватися автоматично
@@ -9,5 +12,8 @@ def validate_score_valid_test():
     for score in [0, 10, 50, 100]:
         assert validate_score(score) is None, f"Expected None for valid score {score}"
 
+
+@pytest.mark.unit
+@pytest.mark.smoke
 def test_1():
     assert True, "Цей тест буде виконуватися автоматично"

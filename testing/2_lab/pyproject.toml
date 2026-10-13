@@ -17,6 +17,17 @@ packages = [{include = "lab", from = "src"}]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.pytest.ini_options]
+markers = [
+    "unit: isolated unit tests",
+    "score_validation: tests for score validation",
+    "grade_book: tests for GradeBook behavior",
+    "lab_module_one: tests for LabModuleOne state changes",
+    "fixtures: tests that use pytest fixtures",
+    "smoke: basic test-runner smoke checks",
+    "main_testing: tests from the main testing example",
+]
+
 [dependency-groups]
 dev = [
     "pytest (>=9.1.1,<10.0.0)"

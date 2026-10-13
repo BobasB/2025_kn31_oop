@@ -1,7 +1,10 @@
 import pytest
+
 from lab.main import GradeBook
 
 
+@pytest.mark.unit
+@pytest.mark.grade_book
 def test_grade_book_add_and_average():
     grade_book = GradeBook()
     grade_book.add_grade("Олена", 92)
@@ -17,6 +20,8 @@ def no_fixtures(): # аналогія методу setUp у unittest, створ
     grade_book.add_grade("Андрій", 67)
     return grade_book
 
+@pytest.mark.unit
+@pytest.mark.grade_book
 def test_get_average_with_no_fixture():
     grade_book = no_fixtures() # викликати функцію щоб вона повернула об'єкт GradeBook
     assert grade_book.get_average("Олена") == pytest.approx(88.0)
@@ -31,6 +36,9 @@ def grade_book_object():
     g.add_grade("Андрій", 67)
     return g
 
+@pytest.mark.unit
+@pytest.mark.grade_book
+@pytest.mark.fixtures
 def test_add_grade_and_get_average(grade_book_object):
     assert grade_book_object.get_average("Олена") == pytest.approx(88.0)
 
@@ -45,6 +53,9 @@ def grade_book_object_with_grades(grade_book_object_original):
     return grade_book
 
 
+@pytest.mark.unit
+@pytest.mark.grade_book
+@pytest.mark.fixtures
 def test_object_with_grades_has_same_class(grade_book_object_original, grade_book_object_with_grades):
     """Перевіряємо чи модифікація об'єкта не змінила його клас"""
     assert isinstance(grade_book_object_with_grades, type(grade_book_object_original))
