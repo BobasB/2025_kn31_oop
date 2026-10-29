@@ -28,3 +28,16 @@ branch = true
 
 [tool.coverage.html]
 directory = "report"
+
+[tool.coverage.report]
+skip_empty = true
+omit = [
+    "*/tests/*",
+    "test_*.py",
+    "*/.venv/*"
+]
+exclude_lines = [
+    'if __name__ == "__main__":',
+    'def lambda_handler',
+]
+fail_under = 80

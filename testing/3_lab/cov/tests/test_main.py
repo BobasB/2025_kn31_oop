@@ -1,6 +1,6 @@
 from operator import add
 import unittest
-from cov.main import function_1
+from cov.main import function_1, empty_function
 from cov.main3 import function_3
 
 
@@ -19,6 +19,10 @@ class TestMain(unittest.TestCase):
         # Тест для function_3
         result = function_3()
         self.assertEqual(result, "Function 3 executed successfully")
+
+    def test_empty_function(self):
+        n = empty_function()
+        self.assertIsNone(n)  # Перевірка, що функція повертає None, оскільки вона порожня і не має return
 
 
 if __name__ == '__main__':

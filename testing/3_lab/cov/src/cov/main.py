@@ -2,7 +2,7 @@ import random
 
 def empty_function():
     # Порожня функція, яка нічого не робить
-    pass
+    print("Пусто")
 
 def combine_strings(str1: str, str2: str) -> str:
     # Функція для об'єднання двох рядків
@@ -23,3 +23,22 @@ def function_1(my_choice: bool) -> str:
     # тут вже ніша логіка 
     b = random.choice(["успішно", "неуспішно"])
     return f"Дефолтне значення: {b}"
+
+def lambda_handler(event, context):
+    # Функція-обробник для AWS Lambda
+    my_choice = random.choice([True, False])
+    result = function_1(my_choice)
+    return {
+        'statusCode': 200,
+        'body': result
+    }
+
+def main():
+    # Основна функція для запуску програми
+    my_choice = random.choice([True, False])
+    result = function_1(my_choice)
+    print(result)
+
+
+if __name__ == "__main__":
+    main()
