@@ -5,10 +5,10 @@
 """
 
 import random
-from library import Library
-from books import Book
-from student import Student
-from stats import Statistics
+from .library import Library
+from .books import Book
+from .student import Student
+from .stats import Statistics
 
 
 if __name__ == "__main__":

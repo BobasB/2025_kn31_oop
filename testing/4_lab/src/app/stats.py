@@ -4,8 +4,8 @@
 використання бібліотеки студентами.
 """
 
-from library import Library
-from student import Student
+from .library import Library
+from .student import Student
 
 
 class Statistics:

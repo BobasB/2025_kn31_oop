@@ -2,9 +2,9 @@
 
 import pytest
 
-from books import Book, BookStatus
-from library import Library
-from student import Student
+from app.books import Book, BookStatus
+from app.library import Library
+from app.student import Student
 
 # задаємо фікстури для книжок, бібліотеки та студентів, щоб використовувати їх у тестах
 @pytest.fixture
@@ -59,16 +59,24 @@ def bob(students):
     [
         ["Аліса"], 
         ["Аліса", "Боб", "Кейт"], 
-        ["А", "Б", "Rodger", "1"],
-        [1, 2, 3]
+        ["А", "Б", "Rodger", "1"]
     ],
     indirect=True,
 )
-def test_all_students_are_registered(library, students):
+def test_all_students_valid_are_registered(library, students):
     assert library.list_registered_students == students
     for student in library.list_registered_students:
         assert student.name is not None, "Студент повинен мати ім'я" 
 # 5 Листопада 2026 року дійшли до цього тесту
+
+@pytest.mark.parametrize(
+    "name",
+    [1, ["Імя"], ("Імя",), "", None, 123, [], {}],
+)
+def test_all_students_broken_raise_value_error(library, name):
+    with pytest.raises(ValueError):
+        library.students.append(Student(name))
+    assert library.list_registered_students == []
 
 @pytest.mark.parametrize("students", [["Аліса", "Боб", "Кейт"]], indirect=True)
 def test_only_one_of_many_students_can_hold_book(library, book, students):

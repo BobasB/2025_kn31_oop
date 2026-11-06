@@ -3,8 +3,8 @@
 Містить клас Library для управління книгами та студентами.
 """
 
-from books import Book, BookStatus
-from student import Student
+from .books import Book, BookStatus
+from .student import Student
 
 
 class Library:

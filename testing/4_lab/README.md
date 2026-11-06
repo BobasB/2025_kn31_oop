@@ -6,4 +6,8 @@
     poetry run pytest
 ```
 
-### 
+Запуск програми після встановлення залежностей:
+
+```bash
+    poetry run python -m app
+```
