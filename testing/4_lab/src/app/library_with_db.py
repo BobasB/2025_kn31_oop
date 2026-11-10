@@ -52,3 +52,18 @@ class LibraryDatabase:
         self.cursor.execute("SELECT id, name FROM students")
         rows = self.cursor.fetchall()
         return [Student(name=row[1]) for row in rows]
+
+    def get_student_by_id(self, student_id: int) -> Student | None:
+        """Повертає студента за його ID.
+        
+        Args:
+            student_id: ID студента
+        
+        Returns:
+            Student | None: Студент або None, якщо студент не знайдений
+        """
+        self.cursor.execute("SELECT id, name FROM students WHERE id = ?", (student_id,))
+        row = self.cursor.fetchone()
+        if row:
+            return Student(name=row[1], ID=row[0])
+        return None

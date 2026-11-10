@@ -20,11 +20,12 @@ class Student:
         book_borrow_dates (dict[int, int]): Словник дат взяття книг
     """
     
-    def __init__(self, name: str | None = None) -> None:
+    def __init__(self, name: str | None = None, ID: int | None = None) -> None:
         """Ініціалізує нового студента.
         
         Args:
             name: Ім'я студента
+            ID: Унікальний ідентифікатор студента
         """
         # Перевіряємо, чи ім'я є рядком; якщо ні, встановлюємо None
         # Студент має мати ім'я яке не є пусти, і дана зміна буде впилати на тестування
@@ -33,7 +34,10 @@ class Student:
             raise ValueError("Ім'я студента має бути непорожнім рядком")
         self.name = name
         # Використовуємо вбудовану функцію id() для унікального ID
-        self.ID = id(self)
+        if ID:
+            self.ID = ID
+        else:
+            self.ID = id(self)
         # Список книг, які зараз у студента
         self.borrowed_books: list[Book] = []
         self.college_name = "ІТ коледж"
