@@ -2,7 +2,7 @@ name: "Перевірка моїх комітів"
 
 on:
   pull_request:
-  push:
+  #push: # зменшуємо запуск тільки до PR
 
 jobs:
   my-job-name-1:
