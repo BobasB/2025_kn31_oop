@@ -1,0 +1,20 @@
+name: "Перевірка моїх комітів"
+
+on:
+  push: # зменшуємо запуск тільки до PR
+
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - uses: actions/setup-python@v7
+      with:
+        python-version: "3.13"
+    - uses: Gr1N/setup-poetry@v10
+    - run: poetry --version
+    - name: Install dependencies
+      working-directory: ./testing/4_lab
+      run: |
+        poetry install
+        poetry run pytest -v
