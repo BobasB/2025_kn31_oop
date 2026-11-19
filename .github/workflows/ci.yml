@@ -1,0 +1,34 @@
+name: "Запуск тестів для лабораторних робіт"
+
+on:
+  push: # зменшуємо запуск тільки до PR
+
+jobs:
+  test_lab_1:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - uses: actions/setup-python@v7
+      with:
+        python-version: "3.13"
+    - uses: Gr1N/setup-poetry@v10
+    - run: poetry --version
+    - name: Install dependencies
+      working-directory: ./testing/4_lab
+      run: |
+        poetry install
+        poetry run pytest -v
+  test_lab_2:
+    runs-on: ubuntu-latest
+    needs: test_lab_1
+    steps:
+    - uses: actions/checkout@v7
+  test_lab_3:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+  test_lab_4:
+    runs-on: ubuntu-latest
+    needs: test_lab_3
+    steps:
+    - uses: actions/checkout@v7
