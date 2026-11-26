@@ -1,0 +1,13 @@
+name: "Різні типи запуску"
+
+on:
+  workflow_dispatch:
+
+jobs:
+    name_test:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v7
+        - uses: actions/setup-python@v7
+          with:
+            python-version: "3.13"
