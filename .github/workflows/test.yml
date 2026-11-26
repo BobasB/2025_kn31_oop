@@ -2,6 +2,20 @@ name: "Різні типи запуску"
 
 on:
   workflow_dispatch:
+    inputs:
+      test_output:
+        description: 'Детерміновані значечення передані у тест'
+        required: true
+        default: '1'
+        type: choice
+        options:
+          - 'Один'
+          - '2'
+          - '3-4'
+      lab_number:
+        description: 'Обовязковий ввід'
+        required: true
+        type: string
 
 jobs:
     name_test:
@@ -11,3 +25,8 @@ jobs:
         - uses: actions/setup-python@v7
           with:
             python-version: "3.13"
+        - name: "Запускаємо вивід з inputs"
+          shell: bash
+          run: |
+            echo "Вивід з inputs: ${{ github.event.inputs.test_output }}"
+            echo "Номер лабораторної роботи: ${{ github.event.inputs.lab_number }}"
