@@ -14,8 +14,12 @@ on:
           - '3-4'
       lab_number:
         description: 'Обовязковий ввід'
-        required: true
+        required: false
         type: string
+        default: 'Empty'
+  schedule:
+    - cron: '05 13 * * 4'
+    - cron: '0 13 30 * *'
 
 jobs:
     name_test:
