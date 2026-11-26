@@ -25,7 +25,8 @@ jobs:
         - uses: actions/setup-python@v7
           with:
             python-version: "3.13"
-        - name: "Запускаємо вивід з inputs"
+        - name: "Запуск деплою в продакшн"
+          if: github.event.inputs.lab_number == 'Password'
           shell: bash
           run: |
             echo "Вивід з inputs: ${{ github.event.inputs.test_output }}"
