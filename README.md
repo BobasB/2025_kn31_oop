@@ -1,3 +1,5 @@
+[![Різні типи запуску](https://github.com/BobasB/2025_kn31_oop/actions/workflows/test.yml/badge.svg)](https://github.com/BobasB/2025_kn31_oop/actions/workflows/test.yml)
+
 # 2025_kn31_oop
 Репозиторій для роботи з групою КН31
 
